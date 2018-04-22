@@ -1,0 +1,14 @@
+;
+$TTL    604800
+@       IN      SOA     mcore01.puplab.local. root.localhost. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      mccore01.puplab.local.
+220     IN      PTR     mccore01.puplab.local.
+225     IN      PTR     mcweb01
+226     IN      PTR     mcweb02
+230     IN      PTR     mcdb01

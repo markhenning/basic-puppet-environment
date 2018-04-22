@@ -1,0 +1,17 @@
+;
+; BIND data file for puplab.local
+;
+$TTL    604800
+@       IN      SOA     mccore01.puplab.local. root.puplab.local. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      mccore01.puplab.local.
+mccore01        IN      A       192.168.8.220
+mcweb01         IN      A       192.168.8.225
+mcweb02         IN      A       192.168.8.226
+mcdb01          IN      A       192.168.8.230
+puppet          IN      CNAME   mccore01.puplab.local.
