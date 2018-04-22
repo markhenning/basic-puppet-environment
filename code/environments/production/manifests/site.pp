@@ -58,9 +58,41 @@ node default {
 ## Any node with "web" in it's name:
 node /.*web.*/ {
 
+  @@haproxy::balancermember { $::fqdn:
+    listening_service => 'puppet00',
+    server_names      => $::hostname,
+    ipaddresses       => $::ipaddress,
+    ports             => '80',
+    options           => 'check',
+  }
+
+
   ## You can just use "include base" here, but this allows us to pass parameters if we ever expand it
   class {base: }
 
   include nginx
 
 }
+
+node /.*lb.*/ {
+
+  class {base: }
+
+  class { 'haproxy': }
+  haproxy::listen { 'puppet00':
+    ipaddress => $::ipaddress,
+    ports     => '80',
+    mode      => 'http',
+  }
+
+  haproxy::balancermember { 'haproxy':
+  listening_service => 'puppet00',
+  ports             => '80',
+  server_names      => ['mcweb01', 'mcweb02'],
+  ipaddresses       => ['192.168.8.225', '192.168.8.226'],
+  options           => 'check',
+  }
+
+
+}
+
