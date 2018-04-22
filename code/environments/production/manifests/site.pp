@@ -1,4 +1,4 @@
-node default {
+class base {
   class { 'ntp':
     servers => ['0.uk.pool.ntp.org','1.uk.pool.ntp.org','2.uk.pool.ntp.org'],
   }
@@ -47,3 +47,20 @@ node default {
 
 }
 
+
+node default {
+
+  ## You can just use "include base" here, but this allows us to pass parameters if we ever expand it
+  class {base: }
+
+}
+
+## Any node with "web" in it's name:
+node /.*web.*/ {
+
+  ## You can just use "include base" here, but this allows us to pass parameters if we ever expand it
+  class {base: }
+
+  include nginx
+
+}
